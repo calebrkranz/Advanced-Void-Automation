@@ -1,0 +1,58 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Advanced Void Automation BP",
+    "description": "Skyblock 0.2.38. Lower MV Link and automation routing overhead.",
+    "uuid": "abb9d86d-fb24-4e8b-b2aa-98a8dff2ebe7",
+    "version": [
+      0,
+      2,
+      38
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "1e532951-6f97-4356-870d-d8fa8595c72d",
+      "version": [
+        0,
+        2,
+        38
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "fffc982d-62a1-4676-a5f7-c3426b476ed6",
+      "version": [
+        0,
+        2,
+        38
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "d907141d-3951-48b8-9afe-025ad35d5688",
+      "version": [
+        0,
+        2,
+        38
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "beta"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.1.0"
+    }
+  ]
+}

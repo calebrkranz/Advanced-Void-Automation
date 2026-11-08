@@ -1,0 +1,17 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ava:wireless_mv_link"
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Wireless MV Link (Retired)"
+      },
+      "minecraft:block_placer": {
+        "block": "ava:wireless_mv_link",
+        "replace_block_item": true
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "ava:mv_system"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "ingredients": [
+      {
+        "item": "minecraft:netherite_ingot"
+      },
+      {
+        "item": "minecraft:diamond_block"
+      },
+      {
+        "item": "minecraft:chest"
+      },
+      {
+        "item": "ava:universal_crafter"
+      },
+      {
+        "item": "ava:steel_ingot"
+      },
+      {
+        "item": "ava:silver_ingot"
+      },
+      {
+        "item": "ava:lead_ingot"
+      },
+      {
+        "item": "ava:nickel_ingot"
+      },
+      {
+        "item": "minecraft:redstone_block"
+      }
+    ],
+    "result": {
+      "item": "ava:mv_system",
+      "count": 1
+    }
+  }
+}

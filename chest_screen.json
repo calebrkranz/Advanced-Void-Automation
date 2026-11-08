@@ -1,0 +1,245 @@
+{
+  "namespace": "chest",
+  "small_chest_screen@common.inventory_screen_common": {
+    "$close_on_player_hurt|default": true,
+    "$use_custom_pocket_toast|default": false,
+    "close_on_player_hurt": "$close_on_player_hurt",
+    "use_custom_pocket_toast": "$use_custom_pocket_toast",
+    "variables": [
+      {
+        "requires": "$desktop_screen",
+        "$screen_content": "chest.small_chest_panel",
+        "$screen_bg_content": "common.screen_background",
+        "$screen_background_alpha": 0.4
+      },
+      {
+        "requires": "$pocket_screen",
+        "$screen_content": "pocket_containers.small_chest_panel",
+        "$use_custom_pocket_toast": true
+      },
+      {
+        "requires": "(($new_container_title = 'ava.activator.native.ui') or ($container_title = 'ava.activator.native.ui'))",
+        "$screen_content": "ava_activator.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.magma.native.ui') or ($container_title = 'ava.magma.native.ui'))",
+        "$screen_content": "ava_magma.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.duplicator.native.ui') or ($container_title = 'ava.duplicator.native.ui'))",
+        "$screen_content": "ava_duplicator.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.crafter.native.ui') or ($container_title = 'ava.crafter.native.ui'))",
+        "$screen_content": "ava_crafter.crafter_root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.mv.native.ui') or ($container_title = 'ava.mv.native.ui'))",
+        "$screen_content": "ava_mv_ui.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.harvester.native.ui') or ($container_title = 'ava.harvester.native.ui'))",
+        "$screen_content": "ava_farm.harvester"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.planter.native.ui') or ($container_title = 'ava.planter.native.ui'))",
+        "$screen_content": "ava_farm.planter"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.link.native.ui') or ($container_title = 'ava.link.native.ui'))",
+        "$screen_content": "ava_link_mv_link_menu.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.wand.native.ui') or ($container_title = 'ava.wand.native.ui'))",
+        "$screen_content": "ava_wand_native.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.processor.native.ui') or ($container_title = 'ava.processor.native.ui'))",
+        "$screen_content": "ava_processor.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.smeltery.native.ui') or ($container_title = 'ava.smeltery.native.ui'))",
+        "$screen_content": "ava_smeltery.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.tool_forge.native.ui') or ($container_title = 'ava.tool_forge.native.ui'))",
+        "$screen_content": "ava_tool_forge.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.grinder.native.ui') or ($container_title = 'ava.grinder.native.ui'))",
+        "$screen_content": "ava_grinder.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.pink_generator.native.ui') or ($container_title = 'ava.pink_generator.native.ui'))",
+        "$screen_content": "ava_pink_generator.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.bacon.native.ui') or ($container_title = 'ava.bacon.native.ui'))",
+        "$screen_content": "ava_bacon.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.achievement.native.ui') or ($container_title = 'ava.achievement.native.ui'))",
+        "$screen_content": "ava_achievement_native.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.pattern.native.ui') or ($container_title = 'ava.pattern.native.ui'))",
+        "$screen_content": "ava_pattern.crafter_root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.smart_node.native.ui') or ($container_title = 'ava.smart_node.native.ui'))",
+        "$screen_content": "ava_smart_node.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.recipebook.native.ui') or ($container_title = 'ava.recipebook.native.ui'))",
+        "$screen_content": "ava_recipebook153.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.processor.upgraded.ui') or ($container_title = 'ava.processor.upgraded.ui'))",
+        "$screen_content": "ava_processor.upgraded"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.planner.native.ui') or ($container_title = 'ava.planner.native.ui'))",
+        "$screen_content": "ava_planner154.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.combustion.native.ui') or ($container_title = 'ava.combustion.native.ui'))",
+        "$screen_content": "ava_combustion182.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.void_miner.native.ui') or ($container_title = 'ava.void_miner.native.ui'))",
+        "$screen_content": "ava_void_miner.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.nuclear.native.ui') or ($container_title = 'ava.nuclear.native.ui'))",
+        "$screen_content": "ava_nuclear279.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.relay.native.ui') or ($container_title = 'ava.relay.native.ui'))",
+        "$screen_content": "ava_relay_native285.root"
+      }
+    ],
+    "$new_container_title|default": "$container_title",
+    "$screen_content|default": "chest.small_chest_panel"
+  },
+  "large_chest_screen@common.inventory_screen_common": {
+    "variables": [
+      {
+        "requires": "$desktop_screen",
+        "$screen_content": "chest.large_chest_panel",
+        "$screen_bg_content": "common.screen_background",
+        "$screen_background_alpha": 0.4
+      },
+      {
+        "requires": "$pocket_screen",
+        "$screen_content": "pocket_containers.large_chest_panel",
+        "$use_custom_pocket_toast": true
+      },
+      {
+        "requires": "(($new_container_title = 'ava.magma.native.ui') or ($container_title = 'ava.magma.native.ui'))",
+        "$screen_content": "ava_magma.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.activator.native.ui') or ($container_title = 'ava.activator.native.ui'))",
+        "$screen_content": "ava_activator.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.duplicator.native.ui') or ($container_title = 'ava.duplicator.native.ui'))",
+        "$screen_content": "ava_duplicator.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.crafter.native.ui') or ($container_title = 'ava.crafter.native.ui'))",
+        "$screen_content": "ava_crafter.crafter_root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.mv.native.ui') or ($container_title = 'ava.mv.native.ui'))",
+        "$screen_content": "ava_mv_ui.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.harvester.native.ui') or ($container_title = 'ava.harvester.native.ui'))",
+        "$screen_content": "ava_farm.harvester"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.planter.native.ui') or ($container_title = 'ava.planter.native.ui'))",
+        "$screen_content": "ava_farm.planter"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.link.native.ui') or ($container_title = 'ava.link.native.ui'))",
+        "$screen_content": "ava_link_mv_link_menu.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.wand.native.ui') or ($container_title = 'ava.wand.native.ui'))",
+        "$screen_content": "ava_wand_native.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.processor.native.ui') or ($container_title = 'ava.processor.native.ui'))",
+        "$screen_content": "ava_processor.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.smeltery.native.ui') or ($container_title = 'ava.smeltery.native.ui'))",
+        "$screen_content": "ava_smeltery.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.tool_forge.native.ui') or ($container_title = 'ava.tool_forge.native.ui'))",
+        "$screen_content": "ava_tool_forge.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.grinder.native.ui') or ($container_title = 'ava.grinder.native.ui'))",
+        "$screen_content": "ava_grinder.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.pink_generator.native.ui') or ($container_title = 'ava.pink_generator.native.ui'))",
+        "$screen_content": "ava_pink_generator.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.bacon.native.ui') or ($container_title = 'ava.bacon.native.ui'))",
+        "$screen_content": "ava_bacon.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.achievement.native.ui') or ($container_title = 'ava.achievement.native.ui'))",
+        "$screen_content": "ava_achievement_native.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.pattern.native.ui') or ($container_title = 'ava.pattern.native.ui'))",
+        "$screen_content": "ava_pattern.crafter_root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.smart_node.native.ui') or ($container_title = 'ava.smart_node.native.ui'))",
+        "$screen_content": "ava_smart_node.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.recipebook.native.ui') or ($container_title = 'ava.recipebook.native.ui'))",
+        "$screen_content": "ava_recipebook153.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.processor.upgraded.ui') or ($container_title = 'ava.processor.upgraded.ui'))",
+        "$screen_content": "ava_processor.upgraded"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.planner.native.ui') or ($container_title = 'ava.planner.native.ui'))",
+        "$screen_content": "ava_planner154.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.combustion.native.ui') or ($container_title = 'ava.combustion.native.ui'))",
+        "$screen_content": "ava_combustion182.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.void_miner.native.ui') or ($container_title = 'ava.void_miner.native.ui'))",
+        "$screen_content": "ava_void_miner.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.nuclear.native.ui') or ($container_title = 'ava.nuclear.native.ui'))",
+        "$screen_content": "ava_nuclear279.root"
+      },
+      {
+        "requires": "(($new_container_title = 'ava.relay.native.ui') or ($container_title = 'ava.relay.native.ui'))",
+        "$screen_content": "ava_relay_native285.root"
+      }
+    ],
+    "$new_container_title|default": "$container_title",
+    "$screen_content|default": "chest.large_chest_panel",
+    "$close_on_player_hurt|default": true,
+    "close_on_player_hurt": "$close_on_player_hurt",
+    "$use_custom_pocket_toast|default": false,
+    "use_custom_pocket_toast": "$use_custom_pocket_toast"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "ava:wireless_controller"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "ingredients": [
+      {
+        "item": "ava:mv_link"
+      },
+      {
+        "item": "ava:circuit_board"
+      },
+      {
+        "item": "ava:polymer"
+      },
+      {
+        "item": "ava:polymer"
+      },
+      {
+        "item": "minecraft:amethyst_shard"
+      },
+      {
+        "item": "minecraft:ender_pearl"
+      },
+      {
+        "item": "ava:platinum_ingot"
+      }
+    ],
+    "result": {
+      "item": "ava:wireless_controller",
+      "count": 1
+    }
+  }
+}

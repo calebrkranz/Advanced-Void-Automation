@@ -1,0 +1,131 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ava:mv_system",
+      "menu_category": {
+        "category": "construction"
+      },
+      "traits": {
+        "minecraft:placement_direction": {
+          "enabled_states": [
+            "minecraft:cardinal_direction"
+          ],
+          "y_rotation_offset": 180
+        }
+      }
+    },
+    "components": {
+      "minecraft:collision_box": true,
+      "minecraft:selection_box": true,
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.45
+      },
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 200
+      },
+      "minecraft:flammable": {
+        "destroy_chance_modifier": 20,
+        "catch_chance_modifier": 5
+      },
+      "minecraft:geometry": {
+        "identifier": "geometry.ava_mv_system_cube"
+      },
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "ava_mv_system_side",
+          "render_method": "opaque"
+        },
+        "north": {
+          "texture": "ava_mv_system_front",
+          "render_method": "opaque"
+        },
+        "south": {
+          "texture": "ava_mv_system_side",
+          "render_method": "opaque"
+        },
+        "east": {
+          "texture": "ava_mv_system_side",
+          "render_method": "opaque"
+        },
+        "west": {
+          "texture": "ava_mv_system_side",
+          "render_method": "opaque"
+        },
+        "up": {
+          "texture": "ava_mv_system_top",
+          "render_method": "opaque"
+        },
+        "down": {
+          "texture": "ava_mv_system_bottom",
+          "render_method": "opaque"
+        }
+      },
+      "minecraft:map_color": "#5f4a2b",
+      "tag:minecraft:is_pickaxe_item_destructible": {},
+      "tag:minecraft:iron_tier_destructible": {},
+      "ava:machine": {},
+      "minecraft:tick": {
+        "interval_range": [
+          20,
+          20
+        ],
+        "looping": true
+      },
+      "minecraft:loot": "loot_tables/blocks/mv_system.json",
+      "minecraft:movable": {
+        "movement_type": "immovable"
+      }
+    },
+    "permutations": [
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'north'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              270,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              180,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              90,
+              0
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

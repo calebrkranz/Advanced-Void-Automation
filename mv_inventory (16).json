@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ava:mv_inventory",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/blocks/glass"
+      },
+      "geometry": {
+        "default": "geometry.ava_empty"
+      },
+      "render_controllers": [
+        "controller.render.ava_empty"
+      ]
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "ava:bank",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "properties": {
+        "core:ui_layout": {
+          "type": "int",
+          "range": [
+            1,
+            32749
+          ],
+          "default": 14002,
+          "client_sync": false
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "melab_terminal"
+        ]
+      },
+      "minecraft:inventory": {
+        "inventory_size": 256,
+        "container_type": "container",
+        "private": true,
+        "can_be_siphoned_from": false
+      },
+      "minecraft:collision_box": {
+        "width": 0,
+        "height": 0
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:persistent": {},
+      "minecraft:health": {
+        "value": 100,
+        "max": 100
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deals_damage": "no"
+          }
+        ]
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1
+      },
+      "minecraft:fire_immune": {}
+    }
+  }
+}

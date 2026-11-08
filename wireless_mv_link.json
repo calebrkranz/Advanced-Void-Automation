@@ -1,0 +1,45 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ava:wireless_mv_link",
+      "states": {
+        "emerald:interdimensional": [
+          false,
+          true
+        ]
+      }
+    },
+    "components": {
+      "minecraft:tick": {
+        "interval_range": [
+          20,
+          20
+        ],
+        "looping": true
+      },
+      "minecraft:collision_box": true,
+      "minecraft:selection_box": true,
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 2.5
+      },
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 200
+      },
+      "minecraft:geometry": "geometry.wireless_mv_access_point",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "wireless_mv_access_point",
+          "render_method": "alpha_test"
+        }
+      },
+      "minecraft:light_emission": 15,
+      "minecraft:map_color": "#ffffff",
+      "ava:machine": {},
+      "minecraft:loot": "loot_tables/blocks/wireless_mv_link.json",
+      "minecraft:movable": {
+        "movement_type": "immovable"
+      }
+    }
+  }
+}

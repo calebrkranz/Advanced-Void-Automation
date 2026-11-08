@@ -1,0 +1,20 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ava:universal_crafter",
+      "menu_category": {
+        "category": "construction"
+      }
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Universal Crafter"
+      },
+      "minecraft:block_placer": {
+        "block": "ava:universal_crafter",
+        "replace_block_item": true
+      }
+    }
+  }
+}

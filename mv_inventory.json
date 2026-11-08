@@ -1,0 +1,97 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "ava:mv_inventory",
+      "is_spawnable": false,
+      "is_summonable": true
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "melab_terminal"
+        ]
+      },
+      "minecraft:inventory": {
+        "inventory_size": 4096,
+        "container_type": "container",
+        "private": false,
+        "restrict_to_owner": false,
+        "can_be_siphoned_from": false
+      },
+      "minecraft:collision_box": {
+        "width": 0,
+        "height": 0
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:persistent": {},
+      "minecraft:health": {
+        "value": 100,
+        "max": 100
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deals_damage": "no"
+          }
+        ]
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1
+      },
+      "minecraft:fire_immune": {},
+      "minecraft:nameable": {
+        "always_show": false,
+        "allow_name_tag_renaming": false
+      }
+    },
+    "component_groups": {
+      "ava:armed": {
+        "minecraft:collision_box": {
+          "width": 1.001,
+          "height": 1.001
+        }
+      },
+      "ava:parked": {
+        "minecraft:collision_box": {
+          "width": 0,
+          "height": 0
+        }
+      }
+    },
+    "events": {
+      "ava:arm": {
+        "remove": {
+          "component_groups": [
+            "ava:parked"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "ava:armed"
+          ]
+        }
+      },
+      "ava:park": {
+        "remove": {
+          "component_groups": [
+            "ava:armed"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "ava:parked"
+          ]
+        }
+      }
+    }
+  }
+}

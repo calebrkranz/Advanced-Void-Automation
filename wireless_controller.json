@@ -1,0 +1,24 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ava:wireless_controller",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": "ava_wireless_remote",
+      "minecraft:interact_button": "Open Wireless MV",
+      "minecraft:use_modifiers": {
+        "movement_modifier": 1,
+        "start_using": "always",
+        "use_duration": 0.05
+      },
+      "minecraft:display_name": {
+        "value": "Wireless MV Remote"
+      }
+    }
+  }
+}

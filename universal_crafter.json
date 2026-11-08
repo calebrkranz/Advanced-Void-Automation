@@ -1,0 +1,123 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ava:universal_crafter",
+      "menu_category": {
+        "category": "construction"
+      },
+      "traits": {
+        "minecraft:placement_direction": {
+          "enabled_states": [
+            "minecraft:cardinal_direction"
+          ],
+          "y_rotation_offset": 180
+        }
+      }
+    },
+    "components": {
+      "minecraft:collision_box": true,
+      "minecraft:selection_box": true,
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1
+      },
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 30
+      },
+      "minecraft:geometry": "geometry.ava_recipe_crafter212",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "ava_recipe_crafter_side212",
+          "render_method": "opaque"
+        },
+        "north": {
+          "texture": "ava_recipe_crafter_front212",
+          "render_method": "opaque"
+        },
+        "south": {
+          "texture": "ava_recipe_crafter_side212",
+          "render_method": "opaque"
+        },
+        "east": {
+          "texture": "ava_recipe_crafter_side212",
+          "render_method": "opaque"
+        },
+        "west": {
+          "texture": "ava_recipe_crafter_side212",
+          "render_method": "opaque"
+        },
+        "up": {
+          "texture": "ava_recipe_crafter_top212",
+          "render_method": "opaque"
+        },
+        "down": {
+          "texture": "ava_recipe_crafter_side212",
+          "render_method": "opaque"
+        }
+      },
+      "minecraft:map_color": "#ffffff",
+      "minecraft:tick": {
+        "interval_range": [
+          20,
+          20
+        ],
+        "looping": true
+      },
+      "ava:machine": {},
+      "minecraft:loot": "loot_tables/blocks/universal_crafter.json",
+      "minecraft:movable": {
+        "movement_type": "immovable"
+      }
+    },
+    "permutations": [
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'north'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              270,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              180,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              90,
+              0
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

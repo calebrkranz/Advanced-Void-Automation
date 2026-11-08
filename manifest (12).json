@@ -1,0 +1,29 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Advanced Void Automation RP",
+    "description": "Skyblock 0.2.38. Lower MV Link and automation routing overhead.",
+    "uuid": "d907141d-3951-48b8-9afe-025ad35d5688",
+    "version": [
+      0,
+      2,
+      38
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "1b9b9b1b-1d6a-4938-a286-7f4a7869a6fc",
+      "version": [
+        0,
+        2,
+        38
+      ]
+    }
+  ]
+}

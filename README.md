@@ -1,26 +1,21 @@
-# Advanced Void Automation Field Guide
+# Advanced Void Automation MV contributor source
 
-**Minecraft Bedrock · AVA 0.2.38**
+This is the MV Storage source from AVA 0.2.38 for Minecraft Bedrock. The complete shared runtime is included so contributors can trace calls into item routing, power and autocrafting.
 
-## Quick Start
+## Where to start
 
-1. Import the .mcaddon in Minecraft Bedrock. In the world settings, activate the matching AVA Behavior and Resource Packs. Enable **Beta APIs**.
-2. Use the AVA void-world template if your download includes one, or use a world you already set up for Skyblock. Make a backup before switching pack versions in an existing world.
-3. Keep a sapling in reserve. Use a Wood Crook on leaves, infest oak leaves with Silkworms for string, and compost surplus plants into dirt. Sieve dirt for pebbles.
-4. Work toward a kiln, fluid storage, a generator and Watt Pipes. Build the Smeltery for alloys, then move on to MV Storage and automated crafting.
+- [Storage and item handling](BP/scripts/main.js#L52) covers count-backed storage and the separate handling of unique item stacks.
+- [Native MV runtime](BP/scripts/main.js#L2269) and [HUD refresh](BP/scripts/main.js#L2364) cover opening storage, search, pagination and interaction.
+- [MV Link Pull and Transfer](BP/scripts/main.js#L2816) uses [batch transfer](BP/scripts/main.js#L2791) and [power debit and refund](BP/scripts/main.js#L2764).
+- [Batch persistence](BP/scripts/main.js#L4792) commits queued storage changes and works with the recovery journal.
+- [Universal Crafter connection lookup](BP/scripts/main.js#L4280) is a starting point for recipe automation.
+- [Resource Pack UI](RP/ui) holds the screen definitions. The shared chest screen routes native inventories to the custom layouts. [Behavior Pack entities](BP/entities) define the inventory hosts.
 
-## Chapters
+## Test a change
 
-- [First Island](First-Island.md)
-- [Sieve Drops](Sieve-Drops.md)
-- [Power and Pipes](Power-and-Pipes.md)
-- [MV Storage and Autocrafting](MV-Storage-and-Autocrafting.md)
-- [Smeltery and Alloys](Smeltery-and-Alloys.md)
-- [Advanced Machines](Advanced-Machines.md)
-- [Essence and Equipment](Essence-and-Equipment.md)
-- [Nuclear and Wireless Power](Nuclear-and-Wireless-Power.md)
-- [Flying Ships](Flying-Ships.md)
-- [Void Ore Miner](Void-Ore-Miner.md)
-- [Troubleshooting](Troubleshooting.md)
-- [Crafting Recipes](Crafting-Recipes.md)
+1. Start with a full copy of AVA 0.2.38. Overlay only the changed files at their matching paths in the Behavior and Resource Packs. This source bundle depends on the full add-on for textures, shared screens, and modules imported by the runtime.
+2. Open a disposable Bedrock test world with both packs and Beta APIs enabled. Back up the test world before testing saved-storage changes.
+3. Test ordinary bulk deposits and withdrawals, an enchanted or named item, a search and page change, both MV Link modes, and reopening the world. For Link changes, also test a full destination and loss and restoration of power.
+4. For a performance change, run the same setup before and after. Use /scriptevent ava:timing start and report the Link call count, average time per call, and maximum call time.
 
+The add-on is listed under [GNU GPL v3 on CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/advanced-void-automation/license).

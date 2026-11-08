@@ -1,0 +1,10 @@
+{
+  "namespace": "ava_mv_ui_furnace_legacy_chest",
+  "hover_text": {
+    "type": "custom",
+    "renderer": "hover_text_renderer",
+    "hover_text_max_width": 0,
+    "layer": 5,
+    "allow_clipping": false
+  }
+}

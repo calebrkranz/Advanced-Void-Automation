@@ -1,0 +1,20 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ava:mv_link",
+      "menu_category": {
+        "category": "construction"
+      }
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "MV Link"
+      },
+      "minecraft:block_placer": {
+        "block": "ava:mv_link",
+        "replace_block_item": true
+      }
+    }
+  }
+}
