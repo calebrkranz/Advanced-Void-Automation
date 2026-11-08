@@ -2,7 +2,7 @@
 
 Start with a tree and build an automated factory above the void. **Advanced Void Automation (AVA)** is a Minecraft Bedrock add-on that connects Skyblock progression, machinery, power, and storage.
 
-[Download on CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/advanced-void-automation) · [Read the player guide](docs/README.md) · [Browse crafting recipes](docs/Crafting-Recipes.md)
+[Download on CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/advanced-void-automation) 
 
 ## What you can build
 
