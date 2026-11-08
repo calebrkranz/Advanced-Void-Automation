@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AVA · Achievements Book</title>
+<style>
+:root{color-scheme:dark;--bg:#0a141b;--panel:#12232d;--line:#2a434e;--text:#edf5f2;--muted:#acc1c6;--mint:#78ebce;--amber:#ffd381}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,sans-serif}
+main{max-width:1110px;margin:auto;padding:30px 24px 52px}
+.hero{background:linear-gradient(132deg,#163844,#11232e 68%);border:1px solid var(--line);border-top:4px solid var(--mint);padding:clamp(22px,5vw,48px);border-radius:14px;margin-bottom:22px}
+.eyebrow{font:700 12px/1.4 ui-monospace,monospace;letter-spacing:.13em;text-transform:uppercase;color:var(--mint)}
+h1{font-size:clamp(39px,7vw,72px);line-height:1.02;letter-spacing:-.045em;margin:10px 0 14px}
+.hero p{color:var(--muted);margin:0;max-width:54ch}
+.summary{border:1px solid var(--line);background:#0b1b24;border-radius:10px;margin-top:24px;padding:14px 17px;max-width:560px}
+.summary-row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#progress-text{color:var(--amber);font-weight:750}
+progress{display:block;width:100%;height:12px;margin:9px 0 4px;accent-color:var(--mint)}
+#save-state{font-size:13px}
+.clear-achievements{margin-top:10px;border:1px solid var(--line);border-radius:6px;background:#142831;color:var(--text);padding:7px 11px;font:600 13px/1.4 system-ui,sans-serif;cursor:pointer}
+.clear-achievements:hover,.clear-achievements:focus-visible{border-color:var(--amber)}
+.filter-tools{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:end;gap:12px;margin:0 0 14px}
+.search-label{display:grid;grid-template-columns:minmax(0,1fr);gap:6px;font-size:14px}
+.filter-tools input[type="search"]{width:100%;min-width:0;min-height:44px;margin:0;padding:9px 11px;border:1px solid var(--line);border-radius:6px;background:#0d1a23;color:var(--text);font:inherit;font-size:16px}
+.filter-tools .incomplete-label{display:flex;align-items:center;gap:8px;min-height:44px;font-size:14px;cursor:pointer}
+.filter-tools .incomplete-label input{margin:0}
+.filter-tools button{min-height:44px;border:1px solid var(--mint);border-radius:6px;background:#17363a;color:var(--text);padding:7px 13px;font:700 14px/1.4 system-ui,sans-serif;cursor:pointer}
+.filter-tools button:disabled{opacity:.55;cursor:default}
+.filter-status{color:var(--muted);font-size:13px;margin:0 0 13px}
+.filter-status:empty{margin:0}
+[hidden]{display:none!important}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.chapter{border:1px solid var(--line);background:var(--panel);border-radius:11px;padding:20px;break-inside:avoid}
+.chapter-heading{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+h2{font-size:23px;line-height:1.14;letter-spacing:-.025em;margin:5px 0 0}
+.count{background:#0d1a23;border:1px solid var(--line);border-radius:5px;padding:3px 8px;white-space:nowrap;color:var(--amber);font:700 13px/1.5 ui-monospace,monospace}
+.intro{color:var(--muted);font-size:14px;margin:11px 0}
+.goals{list-style:none;margin:0 0 12px;padding:0}
+.goals li{border-top:1px solid var(--line)}
+.goals label{display:grid;grid-template-columns:20px minmax(0,1fr);gap:11px;align-items:start;padding:9px 2px;cursor:pointer}
+.goals label:hover{background:#1a313c}
+input[type="checkbox"]{width:18px;height:18px;margin:3px 0 0;accent-color:var(--mint);flex:none}
+.goals label strong{display:block;font-size:15px}
+.goals label small{display:block;color:var(--muted);font-size:13px;line-height:1.4}
+input:checked+span strong{color:var(--mint)}
+a{color:var(--mint);text-underline-offset:3px}
+.guide{font-size:13px}
+.badge{color:var(--amber);font-size:16px}
+.chapter-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.chapter-nav a{background:#12232d;border:1px solid var(--line);border-radius:6px;padding:5px 9px;font-size:13px;text-decoration:none}
+.chapter-nav a:hover,.chapter-nav a:focus-visible{border-color:var(--mint)}
+.chapter:target{border-color:var(--mint)}
+.finale{box-sizing:border-box;position:fixed;inset:0;width:100%;max-width:none;height:100%;max-height:none;margin:0;border:0;background:radial-gradient(ellipse at center,#224e52 0%,#12242f 50%,#0a141b 78%);color:var(--text);padding:24px;overflow:auto}
+.finale[open]{display:grid;place-items:center}
+.finale::backdrop{background:#071015}
+.finale-card{max-width:800px;text-align:center;padding:36px 12px}
+.finale-kicker{display:block;color:var(--amber);font:700 clamp(13px,3vw,19px)/1.4 ui-monospace,monospace;letter-spacing:.2em;text-transform:uppercase;animation:finale-reveal .65s ease-out both}
+.finale h2{color:#f4fff8;font-size:clamp(45px,10vw,110px);line-height:.95;letter-spacing:-.065em;margin:16px 0 22px;text-shadow:0 4px 30px #78ebce66;animation:finale-title 1.15s cubic-bezier(.18,.75,.24,1) .12s both}
+.finale p,.finale form{animation:finale-reveal .6s ease-out .7s both}
+.finale p{color:var(--mint);font-size:clamp(17px,3vw,23px)}
+.finale button{border:1px solid var(--mint);border-radius:6px;background:#112630;color:var(--text);padding:10px 16px;font:inherit;cursor:pointer}
+.finale button:focus-visible{outline:2px solid var(--amber);outline-offset:4px}
+@keyframes finale-reveal{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes finale-title{from{opacity:0;transform:scale(.72);letter-spacing:.01em}65%{opacity:1;transform:scale(1.04)}to{opacity:1;transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.finale *{animation:none!important}}
+.celebration{position:fixed;z-index:5;right:18px;bottom:18px;width:min(360px,calc(100% - 36px));pointer-events:none}
+.celebration:not(:empty){display:grid;grid-template-columns:53px minmax(0,1fr);gap:13px;align-items:center;background:linear-gradient(110deg,#41311e,#152a34 52%);border:1px solid var(--amber);border-radius:10px;box-shadow:0 12px 32px #0009,0 0 22px #ffd38122;padding:14px 17px;animation:arrive .48s cubic-bezier(.18,.7,.22,1.15) both}
+.celebration .unlocked-star{display:grid;place-items:center;width:48px;height:48px;border:2px solid #ffe3a9;border-radius:13px;background:#ffd381;color:#35250f;font-size:29px;line-height:1;box-shadow:0 0 17px #ffd38166;animation:star-stamp .58s .05s cubic-bezier(.18,.75,.29,1.35) both}
+.celebration .unlock-copy{animation:unlock-copy .36s .22s ease-out both}
+@keyframes star-stamp{from{opacity:0;transform:scale(.5) rotate(-25deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes unlock-copy{from{opacity:0;transform:translateX(7px)}to{opacity:1;transform:none}}
+.celebration b,.celebration span{display:block}
+.celebration b{color:var(--amber);font:700 12px ui-monospace,monospace;text-transform:uppercase;letter-spacing:.12em;margin-bottom:4px}
+.celebration i{position:absolute;top:35px;left:39px;width:5px;height:8px;border-radius:1px;background:var(--particle);animation:spark .94s .18s ease-out both}
+@keyframes arrive{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes spark{from{opacity:1;transform:translate(0,0) rotate(0)}to{opacity:0;transform:translate(var(--x),var(--y)) rotate(300deg)}}
+@media(prefers-reduced-motion:reduce){.celebration:not(:empty),.celebration .unlocked-star,.celebration .unlock-copy{animation:none}.celebration i{display:none}}
+footer{color:var(--muted);font-size:13px;padding-top:18px}
+@media(max-width:700px){main{padding:16px 12px 30px}.grid{grid-template-columns:1fr}.chapter{padding:16px}}
+@media(max-width:600px){
+  .filter-tools{grid-template-columns:minmax(0,1fr) auto;row-gap:8px}
+  .search-label{grid-column:1/-1}
+}
+@media(max-width:600px),(pointer:coarse){
+  .clear-achievements,.chapter-nav a,.goals label,.finale button{min-height:44px}
+  .chapter-nav a{display:inline-flex;align-items:center}
+}
+@media print{body,.hero,.chapter,.summary,.count{color:#161616;background:white}main{padding:0}.grid{grid-template-columns:1fr}.hero,.chapter,.summary,.count{border-color:#aaa}.eyebrow,.intro,label small,input:checked+span strong,#progress-text,a,footer{color:#333}.guide,#save-state,.chapter-nav,.celebration,.finale[open],.clear-achievements,.filter-tools,.filter-status{display:none}progress{display:none}h1{font-size:34px}}
+</style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <div class="eyebrow">ADVANCED VOID AUTOMATION / 0.2.38</div>
+    <h1>Achievements Book</h1>
+    <p>From your first oak sapling to a factory that feeds itself. Check off achievements as you reach them. Gold stars mark major milestones. Use the chapter links to jump between progression and long-term records.</p>
+    <div class="summary">
+      <div class="summary-row"><strong>Island progress</strong><span id="progress-text" aria-live="polite">0 / 139 complete</span></div>
+      <progress id="progress" value="0" max="139" aria-label="Achievements complete"></progress>
+      <p id="save-state">Progress saves in this browser when local storage is available.</p>
+      <button type="button" id="clear-achievements" class="clear-achievements">Clear Achievements</button>
+    </div>
+  </header>
+  <div class="filter-tools" role="group" aria-label="Find achievements">
+    <label class="search-label" for="search-achievements">
+      <span>Search achievements</span>
+      <input type="search" id="search-achievements" placeholder="Try watts, Polymer, or a chapter name" autocomplete="off">
+    </label>
+    <label class="incomplete-label"><input type="checkbox" id="incomplete-only"> Incomplete only</label>
+    <button type="button" id="continue-book">Continue</button>
+  </div>
+  <p class="filter-status" id="filter-status" aria-live="polite"></p>
+  <nav class="chapter-nav" aria-label="Chapters">
+    <a href="#chapter-01">01 The First Island</a><a href="#chapter-02">02 From Stone to Ingots</a><a href="#chapter-03">03 Power and Pipes</a><a href="#chapter-04">04 Heat and Metal</a><a href="#chapter-05">05 The MV Network</a><a href="#chapter-06">06 Advanced Industry</a><a href="#chapter-07">07 Beyond the Island</a><a href="#chapter-08">08 Essence Equipment</a><a href="#chapter-09">09 Build Big</a><a href="#chapter-10">10 The Power Ledger</a><a href="#chapter-11">11 Bulk Storage Records</a><a href="#chapter-12">12 Sieve Marathon</a><a href="#chapter-13">13 Mob and Crop Records</a><a href="#chapter-14">14 Factory Engineering Trials</a>
+  </nav>
+  <div class="grid">
+  <section class="chapter" id="chapter-01" aria-labelledby="title-01">
+    <div class="chapter-heading">
+      <div><span class="eyebrow">CHAPTER 01 / Survival</span><h2 id="title-01" tabindex="-1">The First Island</h2></div>
+      <span class="count" data-count>0 / 11</span>
+    </div>
+    <p class="intro">Turn your starter tree into a repeatable source of building materials.</p>
+    <ul class="goals">
+      <li><label><input type="checkbox" id="goal-01-1"><span><strong>Secure the island</strong><small>Extend the platform around your tree and replant an oak sapling.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-01-2"><span><strong>Make a Wood Crook</strong><small>Crook oak leaves until you collect a Silkworm.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-01-3"><span><strong>Make string</strong><small>Infest oak leaves with a Silkworm and collect string from the infested leaves.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-01-4"><span><strong>Compost your first dirt</strong><small>Fill a composter with accepted plant material and collect the finished Dirt.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-01-5"><span><strong>Sieve your first block</strong><small>Sieve Dirt, collect four ordinary Pebbles, and craft Cobblestone.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-01-6" data-milestone><span><strong>Build a renewable cobblestone generator<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Set up water and lava so you can gather Cobblestone without consuming either source.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-01-7"><span><strong>Plant a backup grove</strong><small>Grow three trees and set aside at least eight spare saplings.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-01-8"><span><strong>Stock the first building chest</strong><small>Collect 64 Oak Planks, 32 Cobblestone, and 16 Dirt.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-01-9"><span><strong>Build a safe leaf collection area</strong><small>Extend the platform under a full canopy and collect leaves or drops without losing them to the void.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-01-10"><span><strong>Use Vein Mining with a crook</strong><small>Sneak-break matching leaves with a supported crook and collect the results.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-01-11"><span><strong>Make two stacks of renewable Cobblestone</strong><small>Gather 128 Cobblestone from your generator.</small></span></label></li>
+    </ul>
+    <a class="guide" href="https://github.com/calebrkranz/Advanced-Void-Automation/blob/main/First-Island.md">Read the survival guide ↗</a>
+  </section>
+  <section class="chapter" id="chapter-02" aria-labelledby="title-02">
+    <div class="chapter-heading">
+      <div><span class="eyebrow">CHAPTER 02 / Resources</span><h2 id="title-02" tabindex="-1">From Stone to Ingots</h2></div>
+      <span class="count" data-count>0 / 11</span>
+    </div>
+    <p class="intro">Open up the resource chain and improve your sieve.</p>
+    <ul class="goals">
+      <li><label><input type="checkbox" id="goal-02-1"><span><strong>Make Gravel, Sand, and Dust</strong><small>Use a Hammer to work through the crushing chain.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-02-2"><span><strong>Make your first metal ingot</strong><small>Sieve for metal materials and follow a recipe through to a finished ingot.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-02-3"><span><strong>Install an Iron Mesh</strong><small>Upgrade a Sieve and run a batch through it.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-02-4"><span><strong>Install a Diamond Mesh</strong><small>Craft and use a Diamond Mesh for your rarer sieve rolls.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-02-5"><span><strong>Collect renewable water</strong><small>Put a composter over a Moisture Collector and fill a Tank using a Fluid Pump.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-02-6"><span><strong>Make clay from Dust</strong><small>Add Dust to a water-filled composter and collect the clay.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-02-7"><span><strong>Sieve every basic input</strong><small>Finish one batch each of Dirt, Gravel, Sand, Red Sand, and Dust.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-02-8"><span><strong>Make Iron from four powders</strong><small>Gather four Iron Powders and combine them into an Iron Ingot.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-02-9"><span><strong>Collect 64 Gravel and 64 Sand</strong><small>Build up both materials at the same time.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-02-10"><span><strong>Find your first sieve Diamond</strong><small>Collect a Diamond from a supported sieve input.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-02-11"><span><strong>Set up a dedicated rare-drop sieve</strong><small>Keep a Diamond Mesh installed and feed that sieve from its own input supply.</small></span></label></li>
+    </ul>
+    <a class="guide" href="https://github.com/calebrkranz/Advanced-Void-Automation/blob/main/Sieve-Drops.md">Read the resources guide ↗</a>
+  </section>
+  <section class="chapter" id="chapter-03" aria-labelledby="title-03">
+    <div class="chapter-heading">
+      <div><span class="eyebrow">CHAPTER 03 / Factory</span><h2 id="title-03" tabindex="-1">Power and Pipes</h2></div>
+      <span class="count" data-count>0 / 11</span>
+    </div>
+    <p class="intro">Build your first line that keeps running while you work elsewhere.</p>
+    <ul class="goals">
+      <li><label><input type="checkbox" id="goal-03-1"><span><strong>Run a Combustion Generator</strong><small>Load fuel and power a machine through Watt Pipes.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-03-2"><span><strong>Power a machine with solar</strong><small>Connect a Solar Panel and verify the machine receives power in daylight.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-03-3"><span><strong>Set up battery backup</strong><small>Charge a Battery Bank, then verify it supplies a connected machine when primary power is unavailable.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-03-4" data-milestone><span><strong>Automate a sieve<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Aim an Activator at a Sieve, feed it a supported block, and collect its output.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-03-5"><span><strong>Route a filtered item</strong><small>Configure a Smart Transfer Node and verify that only the intended items reach the destination.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-03-6"><span><strong>Automate tree farming</strong><small>Pair a Planter and Harvester, then collect logs without harvesting the tree yourself.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-03-7"><span><strong>Run a branched Watt network</strong><small>Power at least three machines from one connected Watt Pipe network.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-03-8"><span><strong>Build a filtered fork</strong><small>Route two items from a common supply to two different destinations.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-03-9"><span><strong>Keep a fuel line stocked</strong><small>Use item automation to replenish a Combustion Generator with a supported fuel.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-03-10"><span><strong>Recover from a full destination</strong><small>Let a destination fill, free space, and verify the transfer line resumes.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-03-11"><span><strong>Run a water line and a lava line</strong><small>Supply two separate machines from compatible fluid tanks.</small></span></label></li>
+    </ul>
+    <a class="guide" href="https://github.com/calebrkranz/Advanced-Void-Automation/blob/main/Power-and-Pipes.md">Read the factory guide ↗</a>
+  </section>
+  <section class="chapter" id="chapter-04" aria-labelledby="title-04">
+    <div class="chapter-heading">
+      <div><span class="eyebrow">CHAPTER 04 / Metallurgy</span><h2 id="title-04" tabindex="-1">Heat and Metal</h2></div>
+      <span class="count" data-count>0 / 11</span>
+    </div>
+    <p class="intro">From your first lava tank to a working casting line.</p>
+    <ul class="goals">
+      <li><label><input type="checkbox" id="goal-04-1"><span><strong>Make and store lava</strong><small>Feed Cobblestone to a Kiln and move the lava into a Tank.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-04-2"><span><strong>Fire Grout into Seared Brick</strong><small>Use a supported furnace or the Magma Furnace to make your first batch.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-04-3" data-milestone><span><strong>Assemble a Seared Smeltery<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Build the 5 × 5 floor and hollow walls. Fit the Controller, Drain, and Seared Tank. Corners are optional.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-04-4"><span><strong>Cast a metal part</strong><small>Set up a Faucet and Casting Table, then pour and collect a part.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-04-5"><span><strong>Make three alloys</strong><small>Produce Bronze, Invar, and Steel. Use separate input slots for the metals.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-04-6"><span><strong>Assemble a modular tool</strong><small>Cast a head, rod, and binding and combine them at the Tool Forge.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-04-7"><span><strong>Cast an ingot with a reusable cast</strong><small>Pour an ingot, collect it, then reuse the same Gold Cast.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-04-8"><span><strong>Make Electrum</strong><small>Mix molten Gold and Silver in the smeltery.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-04-9"><span><strong>Pour a full metal block</strong><small>Fill a Casting Basin with the selected metal and collect the cooled block.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-04-10"><span><strong>Recycle a piece of metal equipment</strong><small>Melt supported gear and recover some of its material.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-04-11"><span><strong>Cast a second alloy without rebuilding</strong><small>Switch the selected molten metal, then pour a different alloy through the same faucet.</small></span></label></li>
+    </ul>
+    <a class="guide" href="https://github.com/calebrkranz/Advanced-Void-Automation/blob/main/Smeltery-and-Alloys.md">Read the metallurgy guide ↗</a>
+  </section>
+  <section class="chapter" id="chapter-05" aria-labelledby="title-05">
+    <div class="chapter-heading">
+      <div><span class="eyebrow">CHAPTER 05 / Storage</span><h2 id="title-05" tabindex="-1">The MV Network</h2></div>
+      <span class="count" data-count>0 / 11</span>
+    </div>
+    <p class="intro">Bring stock, machine inputs, and crafting into one system.</p>
+    <ul class="goals">
+      <li><label><input type="checkbox" id="goal-05-1" data-milestone><span><strong>Open a powered MV System<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Deposit several materials, Find one by name, and withdraw a stack.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-05-2"><span><strong>Craft directly in MV Storage</strong><small>Use the 3 × 3 recipe grid to craft from stored ingredients.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-05-3"><span><strong>Transfer machine output into MV</strong><small>Use a powered MV Link in Transfer mode and verify the stored count rises.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-05-4"><span><strong>Feed a machine from MV</strong><small>Use a powered MV Link in Pull mode with an item filter and verify the destination receives it.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-05-5"><span><strong>Bind a Wireless MV Remote</strong><small>Bind it to your MV System and open the terminal from elsewhere on the island.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-05-6" data-milestone><span><strong>Save a Universal Crafter job<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Add a recipe to automation and verify the finished items return to MV Storage.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-05-7"><span><strong>Store 1,000 items of one type</strong><small>Pick a bulk material and bring its MV stock to 1,000.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-05-8"><span><strong>Store 50 distinct item types</strong><small>Use the MV terminal type count as your check.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-05-9" data-milestone><span><strong>Store 10,000 items of one type<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Build enough renewable production to fill MV with 10,000 of a single resource.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-05-10"><span><strong>Keep a crafted item in stock</strong><small>Set a Universal Crafter stock target, withdraw some of the item, and watch the job refill it.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-05-11" data-milestone><span><strong>Link three production lines to one terminal<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Watch output from three different machines or lines arrive in the same MV System.</small></span></label></li>
+    </ul>
+    <a class="guide" href="https://github.com/calebrkranz/Advanced-Void-Automation/blob/main/MV-Storage-and-Autocrafting.md">Read the storage guide ↗</a>
+  </section>
+  <section class="chapter" id="chapter-06" aria-labelledby="title-06">
+    <div class="chapter-heading">
+      <div><span class="eyebrow">CHAPTER 06 / Processing</span><h2 id="title-06" tabindex="-1">Advanced Industry</h2></div>
+      <span class="count" data-count>0 / 11</span>
+    </div>
+    <p class="intro">Turn farm surplus and basic metals into useful machine components.</p>
+    <ul class="goals">
+      <li><label><input type="checkbox" id="goal-06-1"><span><strong>Make your first Polymer</strong><small>Run 16 crops or saplings, 1 charcoal, and 1,000 mB of water through a powered Pressure Reactor.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-06-2"><span><strong>Produce a Reinforced Frame</strong><small>Use the Precision Assembler to produce a Reinforced Frame.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-06-3"><span><strong>Run the Material Infuser</strong><small>Complete one listed infusion recipe and collect its output.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-06-4"><span><strong>Build a Factory Core</strong><small>Craft the block and complete one of its production recipes.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-06-5"><span><strong>Build a mob-processing line</strong><small>Supply a Mob Grinder with power and route its drops to storage.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-06-6"><span><strong>Run a Pink Slime Generator</strong><small>Collect Pink Essence from pigs, obtain Pink Slime, and use it to generate power.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-06-7"><span><strong>Stock 64 Polymer</strong><small>Store a full stack made by the Pressure Reactor.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-06-8"><span><strong>Produce an Advanced Circuit</strong><small>Complete its Precision Assembler recipe.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-06-9"><span><strong>Produce a Conductive Core</strong><small>Complete its Precision Assembler recipe.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-06-10"><span><strong>Run two processors from one supply line</strong><small>Send the right ingredients to each processor and collect both outputs.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-06-11" data-milestone><span><strong>Make a stack of Reinforced Frames<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Store 64 frames for your late-game builds.</small></span></label></li>
+    </ul>
+    <a class="guide" href="https://github.com/calebrkranz/Advanced-Void-Automation/blob/main/Advanced-Machines.md">Read the processing guide ↗</a>
+  </section>
+  <section class="chapter" id="chapter-07" aria-labelledby="title-07">
+    <div class="chapter-heading">
+      <div><span class="eyebrow">CHAPTER 07 / Progression</span><h2 id="title-07" tabindex="-1">Beyond the Island</h2></div>
+      <span class="count" data-count>0 / 11</span>
+    </div>
+    <p class="intro">Open new material routes without relying on a new dimension.</p>
+    <ul class="goals">
+      <li><label><input type="checkbox" id="goal-07-1"><span><strong>Brew Witch Water</strong><small>Use Ancient Spores to make Mycelium and brew water in a composter above it.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-07-2"><span><strong>Make Soul Sand</strong><small>Add Sand to Witch Water and collect the resulting block.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-07-3"><span><strong>Make End Stone</strong><small>Combine Glowstone Dust and lava in a Stone Barrel.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-07-4"><span><strong>Make Netherite</strong><small>Crush and sieve Netherrack for Netherite Scrap, then craft an ingot.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-07-5"><span><strong>Install a Netherite Mesh</strong><small>Craft the top mesh tier and finish a sieve batch.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-07-6" data-milestone><span><strong>Run a Void Ore Miner<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Assemble the controller, frames, and laser head over a clear shaft, then collect your first output.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-07-7"><span><strong>Make your first Obsidian</strong><small>Use a Stone Barrel with lava and a Water Bucket.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-07-8"><span><strong>Harvest Nether Wart from a sieve batch</strong><small>Sieve Soul Sand and collect Nether Wart.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-07-9"><span><strong>Sieve a batch of End Stone</strong><small>Feed End Stone to a Sieve and collect the results.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-07-10"><span><strong>Fit a Focus Lens to the Void Ore Miner</strong><small>Run a focused cycle and collect its output.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-07-11"><span><strong>Stock a full stack of End Stone</strong><small>Automate or repeat the Stone Barrel conversion until you have 64 blocks.</small></span></label></li>
+    </ul>
+    <a class="guide" href="https://github.com/calebrkranz/Advanced-Void-Automation/blob/main/First-Island.md">Read the progression guide ↗</a>
+  </section>
+  <section class="chapter" id="chapter-08" aria-labelledby="title-08">
+    <div class="chapter-heading">
+      <div><span class="eyebrow">CHAPTER 08 / Farming</span><h2 id="title-08" tabindex="-1">Essence Equipment</h2></div>
+      <span class="count" data-count>0 / 11</span>
+    </div>
+    <p class="intro">Turn repeated harvests into the full equipment progression.</p>
+    <ul class="goals">
+      <li><label><input type="checkbox" id="goal-08-1"><span><strong>Harvest your first Inferium crop</strong><small>Collect Inferium and Prosperity from sieving, craft the seed, and harvest it at maturity.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-08-2"><span><strong>Make an Infusion Crystal</strong><small>Craft the crystal at a crafting table, then infuse essence in the Essence Tinkering Table.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-08-3"><span><strong>Wear a full Inferium set</strong><small>Craft the helmet, chestplate, leggings, and boots.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-08-4"><span><strong>Upgrade through the middle tiers</strong><small>Finish Prudentium, Intermedium, and Superium armor sets.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-08-5" data-milestone><span><strong>Complete the Supremium set<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Upgrade all four pieces to Supremium. Native flight is a separate test in a world with Education features and cheats.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-08-6"><span><strong>Install your first Essence Charm</strong><small>Apply a compatible charm to a Supremium tool or armor piece.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-08-7"><span><strong>Upgrade your essence seed</strong><small>Craft and harvest a tier II or higher Inferium Essence Seed.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-08-8"><span><strong>Harvest tier V Inferium</strong><small>Grow and harvest the highest-tier seed.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-08-9" data-milestone><span><strong>Craft a Master Infusion Crystal<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Reach Supremium Essence and craft the reusable Master Crystal.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-08-10"><span><strong>Make a Supremium tool</strong><small>Complete one tool upgrade through the Supremium tier.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-08-11"><span><strong>Test the complete Supremium set</strong><small>In a compatible test world with Education features and cheats, confirm that native flight works.</small></span></label></li>
+    </ul>
+    <a class="guide" href="https://github.com/calebrkranz/Advanced-Void-Automation/blob/main/Essence-and-Equipment.md">Read the farming guide ↗</a>
+  </section>
+  <section class="chapter" id="chapter-09" aria-labelledby="title-09">
+    <div class="chapter-heading">
+      <div><span class="eyebrow">CHAPTER 09 / Endgame</span><h2 id="title-09" tabindex="-1">Build Big</h2></div>
+      <span class="count" data-count>0 / 11</span>
+    </div>
+    <p class="intro">Give your finished factory ambitious projects to supply.</p>
+    <ul class="goals">
+      <li><label><input type="checkbox" id="goal-09-1" data-milestone><span><strong>Run a Nuclear Reactor<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Build the hollow 3 × 3 × 3 shell, install cooling blocks, and run a Nuclear Fuel Rod.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-09-2"><span><strong>Automate coolant replacement</strong><small>Aim an Activator at a cooling position and verify it replaces a spent cooler.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-09-3"><span><strong>Power a machine wirelessly</strong><small>Pair a receiver with a named transmitter and power a separate machine.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-09-4" data-milestone><span><strong>Launch and dock a flying ship<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Build a supported hull with a Helm and Balloon, launch it, and dock in a clear spot.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-09-5" data-milestone><span><strong>Craft a tier III Ship Helm<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Upgrade through all three craftable helms and fly a ship with the top tier.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-09-6"><span><strong>Run the factory unattended</strong><small>Keep one resource chain producing and returning goods to MV Storage for ten minutes without manual feeding.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-09-7"><span><strong>Run a reactor on mixed cooling</strong><small>Operate with at least two supported cooling block materials.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-09-8"><span><strong>Recycle a Spent Fuel Rod</strong><small>Use a full rod, collect the spent rod, and craft it into Steel.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-09-9"><span><strong>Set up two wireless receivers</strong><small>Power two separate machines from the same loaded transmitter.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-09-10"><span><strong>Fly with cargo</strong><small>Carry items in a single Chest or Barrel, dock, and recover the cargo.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-09-11" data-milestone><span><strong>Build a ship larger than the starter deck<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Launch and dock a ship with a deck larger than 3 × 3 and enough balloons for the hull.</small></span></label></li>
+    </ul>
+    <a class="guide" href="https://github.com/calebrkranz/Advanced-Void-Automation/blob/main/Nuclear-and-Wireless-Power.md">Read the endgame guide ↗</a>
+  </section>
+  <section class="chapter" id="chapter-10" aria-labelledby="title-10">
+    <div class="chapter-heading">
+      <div><span class="eyebrow">CHAPTER 10 / Power records</span><h2 id="title-10" tabindex="-1">The Power Ledger</h2></div>
+      <span class="count" data-count>0 / 8</span>
+    </div>
+    <p class="intro">These are cumulative energy milestones. A full buffer is only one way to track progress.</p>
+    <ul class="goals">
+      <li><label><input type="checkbox" id="goal-10-1"><span><strong>Generate 10,000 watts</strong><small>Track cumulative generation, or charge an empty 10,000 W Combustion Generator buffer.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-10-2"><span><strong>Generate 100,000 watts</strong><small>Record 100,000 W of cumulative generation, or charge an empty 100,000 W battery block from your network.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-10-3" data-milestone><span><strong>Generate 1 million watts<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Record 1,000,000 W of cumulative generation. A reactor that fully uses one Nuclear Fuel Rod generates 1.2 million W.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-10-4" data-milestone><span><strong>Generate 10 million watts<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Record 10,000,000 W of cumulative generation. Fully use nine Nuclear Fuel Rods to pass this mark.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-10-5" data-milestone><span><strong>Generate 100 million watts<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Record 100,000,000 W of cumulative generation. Fully use 84 Nuclear Fuel Rods to pass this mark.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-10-6" data-milestone><span><strong>Store 1 million watts at once<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Charge ten connected Battery blocks to full, or fill the reactor’s 1,000,000 W buffer.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-10-7"><span><strong>Use three power sources</strong><small>Run machines from three distinct sources, such as combustion, solar, and nuclear.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-10-8"><span><strong>Run a backup circuit through a full shutdown</strong><small>Cut primary generation, observe the battery take over, then restore primary power.</small></span></label></li>
+    </ul>
+    <a class="guide" href="https://github.com/calebrkranz/Advanced-Void-Automation/blob/main/Nuclear-and-Wireless-Power.md">Read the power records guide ↗</a>
+  </section>
+  <section class="chapter" id="chapter-11" aria-labelledby="title-11">
+    <div class="chapter-heading">
+      <div><span class="eyebrow">CHAPTER 11 / Stockpiles</span><h2 id="title-11" tabindex="-1">Bulk Storage Records</h2></div>
+      <span class="count" data-count>0 / 8</span>
+    </div>
+    <p class="intro">Use the counts in the MV terminal to verify these reserves.</p>
+    <ul class="goals">
+      <li><label><input type="checkbox" id="goal-11-1"><span><strong>Store 100 distinct item types</strong><small>Build a collection that spans early materials, equipment, and machine components.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-11-2" data-milestone><span><strong>Store 150 distinct item types<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Reach 150 types in one MV System.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-11-3"><span><strong>Stock 1,000 Cobblestone</strong><small>Feed a renewable cobblestone line into MV Storage.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-11-4"><span><strong>Stock 10,000 Cobblestone</strong><small>Bring a single stored Cobblestone count to five digits.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-11-5" data-milestone><span><strong>Stock 100,000 Cobblestone<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Leave your cobblestone line running until MV holds six figures.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-11-6" data-milestone><span><strong>Stock 1 million of one item<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Pick a renewable item and reach 1,000,000 units in one MV System.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-11-7"><span><strong>Stock a full stack of three alloys</strong><small>Store 64 each of Bronze, Invar, and Steel.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-11-8" data-milestone><span><strong>Keep five recipes stocked automatically<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Set a target for five different recipes and verify they refill after withdrawals.</small></span></label></li>
+    </ul>
+    <a class="guide" href="https://github.com/calebrkranz/Advanced-Void-Automation/blob/main/MV-Storage-and-Autocrafting.md">Read the stockpiles guide ↗</a>
+  </section>
+  <section class="chapter" id="chapter-12" aria-labelledby="title-12">
+    <div class="chapter-heading">
+      <div><span class="eyebrow">CHAPTER 12 / Production records</span><h2 id="title-12" tabindex="-1">Sieve Marathon</h2></div>
+      <span class="count" data-count>0 / 8</span>
+    </div>
+    <p class="intro">Count the inputs your sieves actually finish. Use separate input stacks or a written tally.</p>
+    <ul class="goals">
+      <li><label><input type="checkbox" id="goal-12-1"><span><strong>Sieve 64 blocks</strong><small>Finish one full stack of any supported input.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-12-2"><span><strong>Sieve 256 blocks</strong><small>Finish four full stacks across one or more sieves.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-12-3" data-milestone><span><strong>Sieve 1,000 blocks<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Finish a thousand blocks across any mesh tiers.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-12-4" data-milestone><span><strong>Sieve 10,000 blocks<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Run an automated sieve line until it has finished ten thousand blocks.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-12-5"><span><strong>Keep two sieve lines supplied</strong><small>Run two independent sieve inputs at the same time.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-12-6" data-milestone><span><strong>Collect 64 Netherite Scrap<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Stock one full stack of Scrap from the Nether resource line.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-12-7"><span><strong>Make 64 Clay from renewable inputs</strong><small>Use renewable water and a Dust supply to collect 64 Clay items.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-12-8"><span><strong>Replenish the whole crushing chain</strong><small>Run Cobblestone through your line and collect Gravel, Sand, and Dust without manually placing each block.</small></span></label></li>
+    </ul>
+    <a class="guide" href="https://github.com/calebrkranz/Advanced-Void-Automation/blob/main/Sieve-Drops.md">Read the production records guide ↗</a>
+  </section>
+  <section class="chapter" id="chapter-13" aria-labelledby="title-13">
+    <div class="chapter-heading">
+      <div><span class="eyebrow">CHAPTER 13 / Living systems</span><h2 id="title-13" tabindex="-1">Mob and Crop Records</h2></div>
+      <span class="count" data-count>0 / 8</span>
+    </div>
+    <p class="intro">Build renewable supplies for industrial processing and equipment.</p>
+    <ul class="goals">
+      <li><label><input type="checkbox" id="goal-13-1"><span><strong>Capture and release a mob</strong><small>Use a Safari Net on a supported mob and release it safely.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-13-2"><span><strong>Run a Mob Duplicator</strong><small>Supply its required inputs and observe a successful duplication.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-13-3" data-milestone><span><strong>Process 100 mobs<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Use the Mob Grinder’s processed count to verify 100 mobs.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-13-4" data-milestone><span><strong>Process 1,000 mobs<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Keep a steady supply of mobs and a clear item output until the count reaches 1,000.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-13-5"><span><strong>Collect 16,000 mB of Liquid XP</strong><small>Fill a dedicated XP Tank or tank group.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-13-6"><span><strong>Collect 16,000 mB of Pink Essence</strong><small>Fill a separate tank group from pig processing.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-13-7" data-milestone><span><strong>Stock 1,000 Inferium Essence<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Harvest mature crops and store the accumulated essence.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-13-8"><span><strong>Build a renewable fuel farm</strong><small>Use tree or crop automation to keep a power or production line supplied.</small></span></label></li>
+    </ul>
+    <a class="guide" href="https://github.com/calebrkranz/Advanced-Void-Automation/blob/main/Advanced-Machines.md">Read the living systems guide ↗</a>
+  </section>
+  <section class="chapter" id="chapter-14" aria-labelledby="title-14">
+    <div class="chapter-heading">
+      <div><span class="eyebrow">CHAPTER 14 / Showcase</span><h2 id="title-14" tabindex="-1">Factory Engineering Trials</h2></div>
+      <span class="count" data-count>0 / 8</span>
+    </div>
+    <p class="intro">Prove that several systems can run together and recover when interrupted.</p>
+    <ul class="goals">
+      <li><label><input type="checkbox" id="goal-14-1"><span><strong>Recover from a dry fuel source</strong><small>Refill or reconnect the source and verify production resumes without replacing the machine.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-14-2"><span><strong>Recover from a depleted MV ingredient</strong><small>Let a saved recipe wait for an ingredient, then supply it and watch the queue continue.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-14-3" data-milestone><span><strong>Run one line for an hour<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Keep a renewable line producing for 60 minutes without manually feeding it.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-14-4"><span><strong>Power a remote worksite</strong><small>Give a separate island or work area working wireless power and a machine that uses it.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-14-5"><span><strong>Build a cargo route</strong><small>Fly a loaded ship between two docks and unload the cargo at the destination.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-14-6"><span><strong>Complete an island-wide stock check</strong><small>Name or label the main lines and verify each finished product reaches its intended storage.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-14-7"><span><strong>Benchmark your factory</strong><small>Run a one-minute timing capture while the factory runs and record its TPS and slowest machine.</small></span></label></li>
+      <li><label><input type="checkbox" id="goal-14-8" data-milestone><span><strong>Commission the full factory<span class="badge" aria-label="Major achievement" title="Major achievement"> &#9733;</span></strong><small>Run resource generation, smelting, crop production, and MV autocrafting together for ten minutes.</small></span></label></li>
+    </ul>
+    <a class="guide" href="https://github.com/calebrkranz/Advanced-Void-Automation/blob/main/Troubleshooting.md">Read the showcase guide ↗</a>
+  </section>
+  </div>
+  <footer>Playable milestones for Advanced Void Automation on Minecraft Bedrock.</footer>
+</main>
+<div id="celebration" class="celebration" role="status" aria-live="polite" aria-atomic="true"></div>
+<dialog id="finale" class="finale" aria-labelledby="finale-title" aria-describedby="finale-count">
+  <div class="finale-card">
+    <span class="finale-kicker">Advanced Void Automation</span>
+    <h2 id="finale-title">All Achievements Unlocked</h2>
+    <p id="finale-count">139 of 139 complete</p>
+    <form method="dialog"><button autofocus>Back to the book</button></form>
+  </div>
+</dialog>
+<script>
+'use strict';
+const storageKey = 'ava-goals-book-0.2.38';
+const chapters = Array.from(document.querySelectorAll('.chapter'), section => {
+  const heading = section.querySelector('h2');
+  const goals = Array.from(section.querySelectorAll('.goals input'));
+  return {
+    section, heading, goals,
+    count: section.querySelector('[data-count]'),
+    navLink: document.querySelector('.chapter-nav a[href="#' + section.id + '"]'),
+    searchText: (heading.textContent + ' ' + section.querySelector('.eyebrow').textContent).toLowerCase(),
+    entries: goals.map(goal => {
+      const row = goal.closest('li');
+      return {goal, row, searchText: row.textContent.toLowerCase()};
+    })
+  };
+});
+const goals = chapters.flatMap(chapter => chapter.goals);
+const search = document.getElementById('search-achievements');
+const incompleteOnly = document.getElementById('incomplete-only');
+const continueBook = document.getElementById('continue-book');
+const filterStatus = document.getElementById('filter-status');
+let nextChapter;
+
+function updateFilter() {
+  const terms = search.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+  let visible = 0;
+  for (const chapter of chapters) {
+    let chapterVisible = 0;
+    for (const {goal, row, searchText} of chapter.entries) {
+      const matches = terms.every(term => searchText.includes(term) || chapter.searchText.includes(term));
+      const show = matches && (!incompleteOnly.checked || !goal.checked);
+      row.hidden = !show;
+      if (show) chapterVisible++;
+    }
+    chapter.section.hidden = chapterVisible === 0;
+    if (chapter.navLink) chapter.navLink.hidden = chapter.section.hidden;
+    visible += chapterVisible;
+  }
+  filterStatus.textContent = visible === 0 ? 'No achievements match these filters.'
+    : terms.length || incompleteOnly.checked ? 'Showing ' + visible + ' of ' + goals.length + ' achievements.' : '';
+}
+
+const progress = document.getElementById('progress');
+const progressText = document.getElementById('progress-text');
+const saveState = document.getElementById('save-state');
+const celebration = document.getElementById('celebration');
+const finale = document.getElementById('finale');
+let celebrationTimer;
+
+function celebrate(goal) {
+  clearTimeout(celebrationTimer);
+  celebration.replaceChildren();
+  const title = document.createElement('b');
+  title.textContent = 'Achievement unlocked';
+  const label = document.createElement('span');
+  label.textContent = goal.nextElementSibling.querySelector('strong').firstChild.textContent;
+  const star = document.createElement('span');
+  star.className = 'unlocked-star';
+  star.setAttribute('aria-hidden', 'true');
+  star.textContent = '★';
+  const copy = document.createElement('div');
+  copy.className = 'unlock-copy';
+  copy.append(title, label);
+  celebration.append(star, copy);
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const colors = ['#ffd381', '#78ebce', '#d2b9ff'];
+    for (let index = 0; index < 16; index++) {
+      const particle = document.createElement('i');
+      particle.setAttribute('aria-hidden', 'true');
+      particle.style.setProperty('--particle', colors[index % colors.length]);
+      const angle = index * Math.PI / 8;
+      const distance = 43 + (index % 3) * 14;
+      particle.style.setProperty('--x', Math.round(Math.cos(angle) * distance) + 'px');
+      particle.style.setProperty('--y', Math.round(Math.sin(angle) * distance) + 'px');
+      celebration.append(particle);
+    }
+  }
+  celebrationTimer = setTimeout(() => celebration.replaceChildren(), 3600);
+}
+
+function updateProgress() {
+  let completed = 0;
+  for (const chapter of chapters) {
+    const checked = chapter.goals.filter(goal => goal.checked).length;
+    chapter.count.textContent = checked + ' / ' + chapter.goals.length;
+    completed += checked;
+  }
+  nextChapter = chapters.find(chapter => chapter.goals.some(goal => !goal.checked));
+  continueBook.disabled = !nextChapter;
+  updateFilter();
+  progress.value = completed;
+  progressText.textContent = completed + ' / ' + goals.length + ' complete';
+  return completed;
+}
+
+try {
+  const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
+  if (Array.isArray(saved)) {
+    const checked = new Set(saved);
+    for (const goal of goals) goal.checked = checked.has(goal.id);
+  }
+} catch {
+  saveState.textContent = 'Saved progress could not be loaded in this browser.';
+}
+
+for (const goal of goals) goal.addEventListener('change', () => {
+  const completed = updateProgress();
+  if (goal.checked && completed === goals.length) {
+    clearTimeout(celebrationTimer);
+    celebration.replaceChildren();
+    if (!finale.open) finale.showModal();
+  } else if (goal.checked && goal.hasAttribute('data-milestone')) {
+    celebrate(goal);
+  }
+  saveProgress();
+});
+
+function saveProgress() {
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(goals.filter(item => item.checked).map(item => item.id)));
+    saveState.textContent = 'Progress saved in this browser.';
+  } catch {
+    saveState.textContent = 'Progress is available for this session. This browser blocked local saving.';
+  }
+}
+
+search.addEventListener('input', updateFilter);
+incompleteOnly.addEventListener('change', updateFilter);
+continueBook.addEventListener('click', () => {
+  if (!nextChapter) return;
+  search.value = '';
+  updateFilter();
+  nextChapter.heading.focus({preventScroll:true});
+  nextChapter.section.scrollIntoView({
+    block:'start',
+    behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+  });
+});
+
+document.getElementById('clear-achievements').addEventListener('click', () => {
+  if (!goals.some(goal => goal.checked)) return;
+  if (!window.confirm('Clear all achievement checkmarks and reset your saved progress?')) return;
+  for (const goal of goals) goal.checked = false;
+  clearTimeout(celebrationTimer);
+  celebration.replaceChildren();
+  updateProgress();
+  saveProgress();
+});
+
+updateProgress();
+</script>
+</body>
+</html>
