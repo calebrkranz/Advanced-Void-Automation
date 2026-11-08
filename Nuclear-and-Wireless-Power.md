@@ -61,9 +61,9 @@ Place one Activator immediately outside each cooling block, pointing inward at t
 - Feed Activator inputs using an MV Pull Link or a Transfer Node if you want unattended replacement. Do not send those blocks into the reactor's fuel slots.
 - Coolant life is saved across world reloads. Existing reactors start their first tracked coolers at full life on this update.
 
-![Illustrated nuclear reactor build](assets/nuclear-reactor.png)
+[Illustrated nuclear reactor build in the PDF](Advanced-Void-Automation-Complete-Guide-0.2.41.pdf)
 
-![Illustrated coolant replacement using Activators](assets/nuclear-automation.png)
+[Illustrated coolant replacement using Activators in the PDF](Advanced-Void-Automation-Complete-Guide-0.2.41.pdf)
 
 ## Fuel and automation
 

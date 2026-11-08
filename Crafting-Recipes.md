@@ -1,10 +1,9 @@
 # Crafting Recipes
 
-These 417 recipe entries are generated from the 0.2.38 behavior pack. Rows are separated by / in shaped patterns. A middle dot is an empty cell. Shapeless entries list ingredients in any arrangement. See Advanced Machines for recipes that run inside a machine.
+These 416 recipe entries come from the 0.2.41 behavior pack. For pictured crafting grids and outputs, open the [illustrated guide](Advanced-Void-Automation-Complete-Guide-0.2.41.pdf). Rows are separated by / in shaped patterns. A middle dot is an empty cell. Shapeless entries list ingredients in any arrangement. See Advanced Machines for recipes that run inside a machine.
 
 | Output | Station | Pattern or ingredients |
 |---|---|---|
-| Achievement Book | Crafting Table | Paper + Oak Sapling |
 | Activator | Crafting Table | Piston + Chest + Iron Ingot + Iron Ingot + Tin Ingot + Tin Ingot + Redstone |
 | Advanced Solar Panel | Crafting Table | Solar Panel + Solar Panel + Solar Panel + Solar Panel + Diamond + Quartz + Silver Ingot + Nickel Ingot + Redstone Block |
 | Alloy Mining Lens | Crafting Table | Glass + Glass + Glass + Glass + Steel Ingot + Steel Ingot + Steel Ingot + Steel Ingot + Purple Dye |

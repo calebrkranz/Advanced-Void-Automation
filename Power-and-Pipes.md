@@ -36,8 +36,6 @@ A Black Hole Unit can accept and supply items through the transfer network. Its 
 
 Face the Mob Grinder’s blades toward the mobs. The HUD names the direction and range it checks. Base cost is 80 W per mob. Transfer Nodes can extract item drops, and separate tank groups can collect Liquid XP and Pink Essence. Full fluid buffers preserve their stored contents and skip new overflow. Full item output still stops processing.
 
-![Battery bank and Watt Pipe build](assets/battery.png)
-
-*Illustrated build reference.*
+[Battery bank and Watt Pipe build in the PDF](Advanced-Void-Automation-Complete-Guide-0.2.41.pdf)
 
 [Back to guide](README.md)

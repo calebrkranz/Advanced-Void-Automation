@@ -2,7 +2,7 @@
 
 Build a skyblock factory in Minecraft Bedrock. Start with a tree, then connect sieves, farms, smelteries, and autocrafting machines to an MV Storage network.
 
-**[Download AVA on CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/advanced-void-automation)** · [Illustrated guide (PDF)](https://calebrkranz.github.io/Advanced-Void-Automation/Advanced-Void-Automation-Complete-Guide-0.2.38.pdf) · [Crafting recipes](Crafting-Recipes.md)
+**[Download AVA on CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/advanced-void-automation)** · [Illustrated guide 0.2.41 (PDF)](Advanced-Void-Automation-Complete-Guide-0.2.41.pdf) · [Crafting recipes](Crafting-Recipes.md)
 
 ## Install
 
@@ -12,8 +12,9 @@ Build a skyblock factory in Minecraft Bedrock. Start with a tree, then connect s
 
 ## Player guide
 
-These pages cover AVA **0.2.38**.
+The **0.2.41 guide** starts with the first tree and walks through water, lava, your first power line, the smeltery, and MV Storage. Its crafting grids show the ingredients, finished item, and quantity. The guide also shows the redesigned Automated Sprinkler.
 
+- [Changelog](CHANGELOG.md) and [Achievements checklist](AVA-Achievements-Book.html)
 - [First Island](First-Island.md) and [Sieve Drops](Sieve-Drops.md)
 - [Power and Pipes](Power-and-Pipes.md) and [MV Storage and Autocrafting](MV-Storage-and-Autocrafting.md)
 - [Smeltery and Alloys](Smeltery-and-Alloys.md) and [Advanced Machines](Advanced-Machines.md)
@@ -22,7 +23,7 @@ These pages cover AVA **0.2.38**.
 
 ## Improve MV Storage
 
-The [shared runtime](main.js) contains the MV logic along with the code for other machines. Start with the part you want to change.
+The [0.2.38 contributor runtime snapshot](main.js) contains the MV logic along with the code for other machines. Start with the part you want to change.
 
 | Area | Source |
 | --- | --- |

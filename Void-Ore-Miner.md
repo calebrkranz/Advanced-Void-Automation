@@ -1,6 +1,6 @@
 # Void Ore Miner
 
-![Illustrated Void Ore Miner build](assets/void-miner.png)
+[Illustrated Void Ore Miner build in the PDF](Advanced-Void-Automation-Complete-Guide-0.2.41.pdf)
 
 Build this late-game machine over the edge of your island. It produces unfinished metals; seeds, essence and other sieve-progression drops remain exclusive to existing systems.
 

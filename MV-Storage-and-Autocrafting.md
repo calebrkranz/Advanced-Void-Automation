@@ -12,7 +12,7 @@ Sneak-use the Wireless MV Remote on the desired MV to bind it, then use the remo
 
 Empty valuable storage and internal inventories before dismantling. Do not delete hidden inventory hosts to force a machine to break; they can hold real items.
 
-## Universal Crafter, Crafting Planner and MV requests
+## Universal Crafter and MV automation
 
 The Universal Crafter uses a 3 x 3 sample recipe. Drag ingredients into the grid, then return the remaining cursor stack to your inventory before using its controls. Samples are returned; recipes consume ingredients from the connected MV storage.
 
@@ -24,7 +24,7 @@ Connect the Crafter directly through its network to MV Storage, or use an enable
 
 MV Storage keeps ordinary stackable items as counts. Use Find to filter stored names, including custom items. Shift-click deposits go into storage; deliberate grid placement sets the crafting recipe. MV Link has the same name-matching Find logic. Show all items resets its search; clicking an item selects its routing filter.
 
-![Annotated MV Storage controls](assets/mv-hud.png)
+[Annotated MV Storage controls in the PDF](Advanced-Void-Automation-Complete-Guide-0.2.41.pdf)
 
 *Illustrated HUD reference. Layout can vary by UI profile.*
 

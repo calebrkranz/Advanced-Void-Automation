@@ -2,15 +2,15 @@
 
 Put **16 crops or saplings** and **1 charcoal** in a Pressure Reactor. Add **1,000 mB of water** using a water bucket or a connected water tank. Supply **400 W per working second** through Watt Pipes. At base speed it takes **8 seconds** and yields **4 Polymer**. Wheat, carrots, potatoes, beetroot, sugar cane, melon slices, pumpkins, cactus and supported saplings can be mixed.
 
-![Pressure Reactor production cell](assets/polymer.png)
-
-*Illustrated build reference.*
+[Pressure Reactor production cell in the PDF](Advanced-Void-Automation-Complete-Guide-0.2.41.pdf)
 
 ## Planters, harvesters, sprinklers and Activators
 
 Provide a Planter with seeds/saplings, suitable soil, free space and power. Place the powered Harvester so its area covers mature crops/trees. Export its internal output with a transfer node. Tree harvesting has built-in crook behavior.
 
-Use the Automated Sprinkler and its supported water/operation arrangement for growth assistance. Watering cans and bone meal provide manual help. Growing faster and harvesting faster are different problems.
+The Automated Sprinkler uses water and Watt power to speed nearby crop growth. Supply water by bucket or from a connected compatible water source. Use the Harvester to collect mature crops.
+
+See the crop-build illustration and the new sprinkler texture in the [0.2.41 illustrated guide](Advanced-Void-Automation-Complete-Guide-0.2.41.pdf).
 
 Configure an Activator deliberately: face, aim, use/break click, sneaking, redstone and order. Tool durability is spent on the first usable tool one at a time, not randomly spread across tools.
 
