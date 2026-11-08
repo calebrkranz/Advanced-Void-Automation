@@ -2,7 +2,7 @@
 
 Build a skyblock factory in Minecraft Bedrock. Start with a tree, then connect sieves, farms, smelteries, and autocrafting machines to an MV Storage network.
 
-**[Download AVA on CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/advanced-void-automation)** · [Illustrated guide (PDF)](Advanced-Void-Automation-Complete-Guide-0.2.38.pdf) · [Crafting recipes](Crafting-Recipes.md)
+**[Download AVA on CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/advanced-void-automation)** · [Illustrated guide (PDF)](https://calebrkranz.github.io/Advanced-Void-Automation/Advanced-Void-Automation-Complete-Guide-0.2.38.pdf) · [Crafting recipes](Crafting-Recipes.md)
 
 ## Install
 
