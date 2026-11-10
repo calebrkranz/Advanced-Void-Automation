@@ -2,7 +2,7 @@
 
 Build a skyblock factory in Minecraft Bedrock. Start with a tree, then connect sieves, farms, smelteries, and autocrafting machines to an MV Storage network.
 
-**[Download AVA on CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/advanced-void-automation)** · [Illustrated guide 0.2.41 (PDF)](Advanced-Void-Automation-Complete-Guide-0.2.41.pdf) · [Crafting recipes](Crafting-Recipes.md)
+**[Download AVA on CurseForge](https://www.curseforge.com/minecraft-bedrock/addons/advanced-void-automation)** · [Illustrated guide](guide.html) · [Crafting recipes](Crafting-Recipes.md)
 
 ## Install
 
@@ -12,7 +12,7 @@ Build a skyblock factory in Minecraft Bedrock. Start with a tree, then connect s
 
 ## Player guide
 
-The **0.2.41 guide** starts with the first tree and walks through water, lava, your first power line, the smeltery, and MV Storage. Its crafting grids show the ingredients, finished item, and quantity. The guide also shows the redesigned Automated Sprinkler.
+The [illustrated guide](guide.html) starts with the first tree and walks through water, lava, your first power line, the smeltery, and MV Storage. The **0.2.83 update** covers the void Nether, Wither Chamber, upgraded chests, Star Forge timings, and redesigned machine HUDs.
 
 - [Changelog](CHANGELOG.md) and [Achievements checklist](AVA-Achievements-Book.html)
 - [First Island](First-Island.md) and [Sieve Drops](Sieve-Drops.md)
